@@ -1,7 +1,8 @@
+import zoneinfo
 
 from fastapi import FastAPI
 from datetime import datetime
-import zoneinfo
+from model.payments import BillingInvoice, CustomerAccount, CustomerProfile, CustomerRegistrationRequest, PaymentTransaction
 
 
 app= FastAPI()
@@ -43,3 +44,16 @@ async def get_time_by_timezone(iso_code: str):
         return {"time": datetime.now(tz).strftime("%H:%M:%S")}
     except KeyError:
         return {"error": "Unknown timezone"}
+    
+
+@app.post("/customer", response_model=CustomerAccount)
+async def create_customer(customer: CustomerRegistrationRequest):
+    return {"message": f"Customer {customer.name} created successfully", "customer": customer.dict()}
+
+@app.post("/transaction")
+async def create_transaction(transaction: PaymentTransaction):
+    return {"message": f"Transaction of {transaction.amount} {transaction.currency} created successfully", "transaction": transaction.dict()}
+
+@app.post("/invoice")
+async def create_invoice(invoice: BillingInvoice):
+    return {"message": f"Invoice for customer {invoice.customer.name} created successfully", "invoice": invoice.dict()} 
