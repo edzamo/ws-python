@@ -41,3 +41,21 @@ elif letra.isalpha():
     print("Es una consonante")
 else:
     print("No es una letra válida")
+
+# 6. Asigna una calificación según el puntaje
+Score = int(input("Introduce el puntaje (0-100): "))
+if 90 <= Score <= 100:
+    grade = "A"
+elif 80 <= Score <= 89:
+    grade = "B"
+elif 70 <= Score <= 79:
+    grade = "C"
+elif 60 <= Score <= 69:
+    grade = "D"
+else:
+    grade = "F"
+print(f"La calificación es: {grade}")
+
+
+
+
